@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    image: expense-tracker:${BUILD_NUMBER:-latest}
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=staging-db-host
+      - DB_USER=staging_user
+      - DB_PASSWORD=staging_password
+      - DB_NAME=expense_tracker_staging
+    restart: always
+
+  db:
+    environment:
+      - MYSQL_DATABASE=expense_tracker_staging
+      - MYSQL_ROOT_PASSWORD=staging_password
+    restart: always
