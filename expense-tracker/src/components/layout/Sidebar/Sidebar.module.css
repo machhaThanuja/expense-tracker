@@ -1,0 +1,124 @@
+.sidebar {
+    background-color: var(--bg-secondary);
+    height: 100%;
+    transition: width var(--transition-speed);
+    box-shadow: var(--shadow);
+    overflow-x: hidden;
+    z-index: 50;
+}
+
+.open {
+    width: 240px;
+}
+
+.closed {
+    width: 64px;
+}
+
+.sidebarContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px 0;
+}
+
+.navList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--text-secondary);
+    transition: all var(--transition-speed);
+    margin-bottom: 4px;
+    border-left: 3px solid transparent;
+}
+
+.navItem:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navItem.active {
+    color: var(--accent-primary);
+    background-color: rgba(0, 184, 212, 0.1);
+    border-left: 3px solid var(--accent-primary);
+}
+
+.navIcon {
+    font-size: 1.25rem;
+    min-width: 24px;
+}
+
+.navText {
+    margin-left: 16px;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity var(--transition-speed);
+}
+
+.closed .navText {
+    opacity: 0;
+    width: 0;
+}
+
+.addButton {
+    margin-top: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: var(--accent-primary);
+    color: white;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+    margin-bottom: 16px;
+}
+
+.addButton:hover {
+    background-color: #00a0c0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 184, 212, 0.3);
+}
+
+.addIcon {
+    font-size: 1rem;
+}
+
+.addText {
+    margin-left: 8px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity var(--transition-speed);
+}
+
+.closed .addText {
+    opacity: 0;
+    width: 0;
+    margin-left: 0;
+}
+
+.closed .addButton {
+    padding: 12px;
+    border-radius: 50%;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .open {
+        width: 240px;
+        position: absolute;
+        height: calc(100% - 64px);
+    }
+
+    .closed {
+        width: 0;
+    }
+}

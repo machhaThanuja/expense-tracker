@@ -1,0 +1,283 @@
+.expensesPage {
+    padding: 12px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.pageTitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: var(--accent-primary);
+    color: white;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: all var(--transition-speed);
+}
+
+.addButton:hover {
+    background-color: #00a0c0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 184, 212, 0.3);
+}
+
+.addIcon {
+    margin-right: 8px;
+}
+
+.filterSection {
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+}
+
+.filterRow {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.filterGroup {
+    flex: 1;
+    min-width: 200px;
+}
+
+.searchInput,
+.filterSelect,
+.filterDate {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--bg-tertiary);
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: all var(--transition-speed);
+}
+
+.searchInput:focus,
+.filterSelect:focus,
+.filterDate:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(0, 184, 212, 0.2);
+}
+
+.totalSection {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    margin-bottom: 4px;
+}
+
+.totalLabel {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-right: 8px;
+}
+
+.totalAmount {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.expenseTable {
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.expenseTableHeader {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.8fr;
+    padding: 16px;
+    background-color: var(--bg-tertiary);
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.sortIcon {
+    margin-left: 6px;
+    font-size: 0.8rem;
+    vertical-align: middle;
+}
+
+.expenseTableRow {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.8fr;
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color var(--transition-speed);
+}
+
+.expenseTableRow:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.expenseTableRow:last-child {
+    border-bottom: none;
+}
+
+.expenseTableCell {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.categoryBadge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: white;
+    display: inline-block;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 8px;
+}
+
+.editButton,
+.deleteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: all var(--transition-speed);
+}
+
+.editButton {
+    color: var(--accent-primary);
+    background-color: rgba(0, 184, 212, 0.1);
+}
+
+.editButton:hover {
+    background-color: rgba(0, 184, 212, 0.2);
+}
+
+.deleteButton {
+    color: var(--danger);
+    background-color: rgba(207, 102, 121, 0.1);
+}
+
+.deleteButton:hover {
+    background-color: rgba(207, 102, 121, 0.2);
+}
+
+.loadingContainer,
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.loadingSpinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 184, 212, 0.2);
+    border-radius: 50%;
+    border-top-color: var(--accent-primary);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.errorContainer {
+    color: var(--danger);
+}
+
+.retryButton {
+    margin-top: 16px;
+    padding: 8px 16px;
+    background-color: var(--accent-primary);
+    color: white;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+}
+
+.retryButton:hover {
+    background-color: #00a0c0;
+}
+
+.noExpenses {
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 992px) {
+
+    .expenseTableHeader,
+    .expenseTableRow {
+        grid-template-columns: 2fr 1fr 1fr 1fr 0.8fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .addButton {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .expenseTableHeader,
+    .expenseTableRow {
+        grid-template-columns: 1fr 1fr 0.8fr;
+    }
+
+    .expenseTableHeader div:nth-child(2),
+    .expenseTableRow div:nth-child(2) {
+        display: none;
+    }
+
+    .expenseTableHeader div:nth-child(3),
+    .expenseTableRow div:nth-child(3) {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .filterRow {
+        flex-direction: column;
+    }
+
+    .expenseTableHeader,
+    .expenseTableRow {
+        font-size: 0.8rem;
+        padding: 12px;
+    }
+}
