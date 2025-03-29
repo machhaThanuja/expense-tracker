@@ -41,3 +41,23 @@ a {
     text-decoration: none;
     color: inherit;
 }
+/* Add this to your existing global.css file */
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+/* Add animation for buttons */
+button {
+    transition: all var(--transition-speed);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

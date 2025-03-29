@@ -1,8 +1,24 @@
 import React from 'react';
-import { FaBars, FaSearch, FaBell, FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaBars, FaSearch, FaBell, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
+import { useAuth } from '../../../context/AuthContext';
 import styles from './Header.module.css';
 
 const Header = ({ toggleSidebar }) => {
+    const { currentUser, logoutUser } = useAuth();
+    const navigate = useNavigate();
+    const [showDropdown, setShowDropdown] = React.useState(false);
+
+    const handleLogout = () => {
+        logoutUser();
+        navigate('/login');
+    };
+
+    const handleProfileClick = () => {
+        navigate('/profile');
+        setShowDropdown(false);
+    };
+
     return (
         <header className={styles.header}>
             <div className={styles.headerLeft}>
@@ -24,9 +40,28 @@ const Header = ({ toggleSidebar }) => {
                     <FaBell />
                     <span className={styles.notificationBadge}>3</span>
                 </button>
-                <div className={styles.userProfile}>
-                    <FaUserCircle className={styles.userAvatar} />
-                    <span className={styles.userName}>John Doe</span>
+                <div
+                    className={styles.userProfile}
+                    onClick={() => setShowDropdown(!showDropdown)}
+                >
+                    <div className={styles.userAvatar}>
+                        {currentUser?.name?.charAt(0).toUpperCase() || <FaUserCircle />}
+                    </div>
+                    <span className={styles.userName}>{currentUser?.name || 'User'}</span>
+
+                    {showDropdown && (
+                        <div className={styles.userDropdown}>
+                            <div className={styles.dropdownItem} onClick={handleProfileClick}>
+                                <FaUserCircle className={styles.dropdownIcon} />
+                                <span>My Profile</span>
+                            </div>
+                            <div className={styles.dropdownDivider}></div>
+                            <div className={styles.dropdownItem} onClick={handleLogout}>
+                                <FaSignOutAlt className={styles.dropdownIcon} />
+                                <span>Log Out</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </header>

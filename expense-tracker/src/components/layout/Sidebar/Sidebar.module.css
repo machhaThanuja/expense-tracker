@@ -1,124 +1,162 @@
 .sidebar {
-    background-color: var(--bg-secondary);
     height: 100%;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--bg-tertiary);
     transition: width var(--transition-speed);
-    box-shadow: var(--shadow);
     overflow-x: hidden;
-    z-index: 50;
-}
-
-.open {
+    display: flex;
+    flex-direction: column;
     width: 240px;
 }
 
-.closed {
-    width: 64px;
+.sidebar.closed {
+    width: 70px;
 }
 
 .sidebarContent {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 16px 0;
 }
 
-.navList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.sidebarHeader {
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--bg-tertiary);
 }
 
-.navItem {
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logoIcon {
+    font-size: 1.5rem;
+    color: var(--accent-primary);
+    margin-right: 12px;
+}
+
+.logoText {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity var(--transition-speed);
+}
+
+.sidebar.closed .logoText {
+    opacity: 0;
+}
+
+.sidebarLinks {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.sidebarLink {
     display: flex;
     align-items: center;
     padding: 12px 20px;
     color: var(--text-secondary);
+    text-decoration: none;
     transition: all var(--transition-speed);
+    cursor: pointer;
     margin-bottom: 4px;
-    border-left: 3px solid transparent;
 }
 
-.navItem:hover {
+.sidebarLink:hover {
+    background-color: var(--bg-tertiary);
     color: var(--text-primary);
-    background-color: rgba(255, 255, 255, 0.05);
 }
 
-.navItem.active {
+.sidebarLink.active {
     color: var(--accent-primary);
-    background-color: rgba(0, 184, 212, 0.1);
+    background: linear-gradient(to right, rgba(0, 184, 212, 0.1), transparent);
     border-left: 3px solid var(--accent-primary);
 }
 
-.navIcon {
-    font-size: 1.25rem;
-    min-width: 24px;
+.linkIcon {
+    font-size: 1.2rem;
+    min-width: 32px;
 }
 
-.navText {
-    margin-left: 16px;
+.linkText {
+    margin-left: 12px;
     white-space: nowrap;
-    opacity: 1;
+    overflow: hidden;
     transition: opacity var(--transition-speed);
 }
 
-.closed .navText {
+.sidebar.closed .linkText {
     opacity: 0;
-    width: 0;
 }
 
-.addButton {
+.sidebarFooter {
     margin-top: auto;
-    margin-left: 16px;
-    margin-right: 16px;
+    padding: 20px;
+    border-top: 1px solid var(--bg-tertiary);
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--bg-tertiary);
+    transition: opacity var(--transition-speed);
+}
+
+.sidebar.closed .userInfo {
+    opacity: 0;
+}
+
+.userAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom right, var(--accent-primary), var(--accent-secondary));
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
-    background-color: var(--accent-primary);
-    color: white;
-    border-radius: var(--border-radius);
-    transition: all var(--transition-speed);
-    margin-bottom: 16px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-right: 12px;
+    flex-shrink: 0;
 }
 
-.addButton:hover {
-    background-color: #00a0c0;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 184, 212, 0.3);
+.userData {
+    overflow: hidden;
 }
 
-.addIcon {
-    font-size: 1rem;
-}
-
-.addText {
-    margin-left: 8px;
+.userName {
     font-weight: 500;
     white-space: nowrap;
-    opacity: 1;
-    transition: opacity var(--transition-speed);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.closed .addText {
-    opacity: 0;
-    width: 0;
-    margin-left: 0;
-}
-
-.closed .addButton {
-    padding: 12px;
-    border-radius: 50%;
-    justify-content: center;
+.userEmail {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @media (max-width: 768px) {
-    .open {
-        width: 240px;
-        position: absolute;
-        height: calc(100% - 64px);
+    .sidebar {
+        position: fixed;
+        z-index: 100;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
     }
 
-    .closed {
-        width: 0;
+    .sidebar.closed {
+        transform: translateX(-100%);
     }
 }

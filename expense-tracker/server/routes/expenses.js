@@ -1,16 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const { authenticateToken } = require('./users');
 
-// Get all expenses
+// Add authentication middleware to all routes
+router.use(authenticateToken);
+
+// Get all expenses for the logged in user
 router.get('/', async (req, res) => {
     try {
         const [rows] = await db.query(`
       SELECT e.*, c.name as category_name, c.color as category_color
       FROM expenses e
       LEFT JOIN categories c ON e.category = c.name
+      WHERE e.user_id = ? OR e.user_id IS NULL
       ORDER BY e.date DESC
-    `);
+    `, [req.user.id]);
         res.json(rows);
     } catch (error) {
         console.error('Error fetching expenses:', error);
@@ -18,10 +23,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get expense by ID
+// Get expense by ID (only if it belongs to the logged in user)
 router.get('/:id', async (req, res) => {
     try {
-        const [rows] = await db.query('SELECT * FROM expenses WHERE id = ?', [req.params.id]);
+        const [rows] = await db.query(
+            'SELECT * FROM expenses WHERE id = ? AND (user_id = ? OR user_id IS NULL)',
+            [req.params.id, req.user.id]
+        );
 
         if (rows.length === 0) {
             return res.status(404).json({ message: 'Expense not found' });
@@ -44,8 +52,8 @@ router.post('/', async (req, res) => {
 
     try {
         const [result] = await db.query(
-            'INSERT INTO expenses (description, amount, category, date) VALUES (?, ?, ?, ?)',
-            [description, amount, category, date]
+            'INSERT INTO expenses (description, amount, category, date, user_id) VALUES (?, ?, ?, ?, ?)',
+            [description, amount, category, date, req.user.id]
         );
 
         const [newExpense] = await db.query('SELECT * FROM expenses WHERE id = ?', [result.insertId]);
@@ -57,7 +65,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Update an expense
+// Update an expense (only if it belongs to the logged in user)
 router.put('/:id', async (req, res) => {
     const { description, amount, category, date } = req.body;
 
@@ -66,13 +74,23 @@ router.put('/:id', async (req, res) => {
     }
 
     try {
+        // Check if expense belongs to user
+        const [expense] = await db.query(
+            'SELECT * FROM expenses WHERE id = ? AND user_id = ?',
+            [req.params.id, req.user.id]
+        );
+
+        if (expense.length === 0) {
+            return res.status(404).json({ message: 'Expense not found or not authorized' });
+        }
+
         const [result] = await db.query(
-            'UPDATE expenses SET description = ?, amount = ?, category = ?, date = ? WHERE id = ?',
-            [description, amount, category, date, req.params.id]
+            'UPDATE expenses SET description = ?, amount = ?, category = ?, date = ? WHERE id = ? AND user_id = ?',
+            [description, amount, category, date, req.params.id, req.user.id]
         );
 
         if (result.affectedRows === 0) {
-            return res.status(404).json({ message: 'Expense not found' });
+            return res.status(404).json({ message: 'Expense not found or not authorized' });
         }
 
         const [updatedExpense] = await db.query('SELECT * FROM expenses WHERE id = ?', [req.params.id]);
@@ -84,13 +102,16 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// Delete an expense
+// Delete an expense (only if it belongs to the logged in user)
 router.delete('/:id', async (req, res) => {
     try {
-        const [result] = await db.query('DELETE FROM expenses WHERE id = ?', [req.params.id]);
+        const [result] = await db.query(
+            'DELETE FROM expenses WHERE id = ? AND user_id = ?',
+            [req.params.id, req.user.id]
+        );
 
         if (result.affectedRows === 0) {
-            return res.status(404).json({ message: 'Expense not found' });
+            return res.status(404).json({ message: 'Expense not found or not authorized' });
         }
 
         res.json({ message: 'Expense deleted successfully' });
@@ -100,10 +121,10 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// Get expense statistics
+// Get expense statistics for the logged in user
 router.get('/stats/summary', async (req, res) => {
     try {
-        // Total expenses for the current month
+        // Total expenses for the current month for this user
         const currentDate = new Date();
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
@@ -112,26 +133,26 @@ router.get('/stats/summary', async (req, res) => {
         const lastDay = lastDayOfMonth.toISOString().split('T')[0];
 
         const [totalResult] = await db.query(
-            'SELECT SUM(amount) as total FROM expenses WHERE date BETWEEN ? AND ?',
-            [firstDay, lastDay]
+            'SELECT SUM(amount) as total FROM expenses WHERE date BETWEEN ? AND ? AND user_id = ?',
+            [firstDay, lastDay, req.user.id]
         );
 
         // Highest expense
         const [highestResult] = await db.query(
             `SELECT amount, category FROM expenses 
-       WHERE date BETWEEN ? AND ?
+       WHERE date BETWEEN ? AND ? AND user_id = ?
        ORDER BY amount DESC LIMIT 1`,
-            [firstDay, lastDay]
+            [firstDay, lastDay, req.user.id]
         );
 
         // Expense by category
         const [categoryResult] = await db.query(
             `SELECT category, SUM(amount) as total
        FROM expenses
-       WHERE date BETWEEN ? AND ?
+       WHERE date BETWEEN ? AND ? AND user_id = ?
        GROUP BY category
        ORDER BY total DESC`,
-            [firstDay, lastDay]
+            [firstDay, lastDay, req.user.id]
         );
 
         res.json({
@@ -153,10 +174,10 @@ router.get('/stats/monthly', async (req, res) => {
         DATE_FORMAT(date, '%Y-%m') as month,
         SUM(amount) as total
       FROM expenses
-      WHERE date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+      WHERE date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND user_id = ?
       GROUP BY DATE_FORMAT(date, '%Y-%m')
       ORDER BY month
-    `);
+    `, [req.user.id]);
 
         res.json(result);
     } catch (error) {

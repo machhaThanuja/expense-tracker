@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaWallet, FaArrowUp, FaArrowDown, FaChartLine } from 'react-icons/fa';
 import styles from './Dashboard.module.css';
-import { fetchExpenseStats, fetchMonthlyExpenses, fetchExpenses } from '../../services/api';
+import { fetchExpenseStats, fetchMonthlyExpenses, fetchExpenses, fetchBudgetsByMonth } from '../../services/api';
 
 const Dashboard = () => {
     const [stats, setStats] = useState({
@@ -13,20 +13,35 @@ const Dashboard = () => {
     const [recentExpenses, setRecentExpenses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [totalBudget, setTotalBudget] = useState(0);
+    const [currentMonth, setCurrentMonth] = useState(() => {
+        const now = new Date();
+        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const [statsData, monthlyData, expensesData] = await Promise.all([
+                const [statsData, monthlyData, expensesData, budgetsData] = await Promise.all([
                     fetchExpenseStats(),
                     fetchMonthlyExpenses(),
-                    fetchExpenses()
+                    fetchExpenses(),
+                    fetchBudgetsByMonth(currentMonth)
                 ]);
 
                 setStats(statsData);
                 setMonthlyData(monthlyData);
                 setRecentExpenses(expensesData.slice(0, 5)); // Get only the 5 most recent expenses
+
+                // Calculate total budget from all category budgets
+                if (budgetsData && budgetsData.length > 0) {
+                    const total = budgetsData.reduce((sum, budget) => sum + parseFloat(budget.amount || 0), 0);
+                    setTotalBudget(total);
+                } else {
+                    setTotalBudget(0);
+                }
+
                 setLoading(false);
             } catch (err) {
                 console.error('Error fetching dashboard data:', err);
@@ -36,7 +51,7 @@ const Dashboard = () => {
         };
 
         fetchData();
-    }, []);
+    }, [currentMonth]);
 
     // Format date function
     const formatDate = (dateString) => {
@@ -50,6 +65,11 @@ const Dashboard = () => {
             style: 'currency',
             currency: 'USD',
         }).format(amount);
+    };
+
+    // Calculate remaining budget
+    const calculateRemainingBudget = () => {
+        return totalBudget - stats.totalExpenses;
     };
 
     if (loading) {
@@ -74,6 +94,9 @@ const Dashboard = () => {
             </div>
         );
     }
+
+    const remainingBudget = calculateRemainingBudget();
+    const isOverBudget = remainingBudget < 0;
 
     return (
         <div className={styles.dashboard}>
@@ -103,13 +126,23 @@ const Dashboard = () => {
                 </div>
 
                 <div className={styles.statCard}>
-                    <div className={styles.statIconContainer} style={{ backgroundColor: 'rgba(3, 218, 198, 0.2)' }}>
-                        <FaArrowUp className={styles.statIcon} style={{ color: 'var(--success)' }} />
+                    <div className={styles.statIconContainer} style={{
+                        backgroundColor: isOverBudget ? 'rgba(207, 102, 121, 0.2)' : 'rgba(3, 218, 198, 0.2)'
+                    }}>
+                        <FaArrowUp className={styles.statIcon} style={{
+                            color: isOverBudget ? 'var(--danger)' : 'var(--success)'
+                        }} />
                     </div>
                     <div className={styles.statInfo}>
                         <h3 className={styles.statTitle}>Budget Status</h3>
-                        <p className={styles.statValue}>{formatCurrency(2000 - stats.totalExpenses)}</p>
-                        <p className={styles.statPeriod}>Remaining</p>
+                        <p className={styles.statValue} style={{
+                            color: isOverBudget ? 'var(--danger)' : 'inherit'
+                        }}>
+                            {formatCurrency(Math.abs(remainingBudget))}
+                        </p>
+                        <p className={styles.statPeriod}>
+                            {isOverBudget ? 'Over Budget' : 'Remaining'}
+                        </p>
                     </div>
                 </div>
 

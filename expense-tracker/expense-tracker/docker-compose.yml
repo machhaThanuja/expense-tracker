@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # React app
+      - "5000:5000"  # Backend API
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root_password
+      - DB_NAME=expense_tracker
+      - DB_PORT=3306
+      - SERVER_PORT=5000
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=expense_tracker
+      - MYSQL_ROOT_PASSWORD=root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:

@@ -1,0 +1,748 @@
+.container {
+    padding: 24px;
+}
+
+.settingsContainer {
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    min-height: 600px;
+}
+
+.settingsTabs {
+    width: 220px;
+    padding: 24px 0;
+    border-right: 1px solid var(--bg-tertiary);
+    background-color: var(--bg-tertiary);
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+}
+
+.tabButton {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 16px 24px;
+    text-align: left;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.tabButton:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.tabButton.active {
+    background-color: rgba(0, 184, 212, 0.1);
+    color: var(--accent-primary);
+}
+
+.tabIcon {
+    font-size: 1.2rem;
+    margin-right: 12px;
+}
+
+.settingsContent {
+    flex: 1;
+    padding: 24px;
+}
+
+.tabContent {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.budgetHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.budgetHeader h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.monthSelector {
+    display: flex;
+    align-items: center;
+}
+
+.monthSelector label {
+    margin-right: 8px;
+    color: var(--text-secondary);
+}
+
+.monthSelect {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: all var(--transition-speed);
+}
+
+.monthSelect:focus {
+    border-color: var(--accent-primary);
+}
+
+.budgetSection,
+.addBudgetSection,
+.settingsSection {
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.budgetSection h3,
+.addBudgetSection h3,
+.settingsSection h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.budgetsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.budgetItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+}
+
+.budgetItem:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.budgetInfo {
+    display: flex;
+    align-items: center;
+}
+
+.categoryDot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.categoryName {
+    font-weight: 500;
+}
+
+.budgetAmount {
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.deleteButton {
+    background-color: transparent;
+    color: var(--text-tertiary);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.deleteButton:hover {
+    color: var(--danger);
+    background-color: rgba(207, 102, 121, 0.1);
+}
+
+.emptyState {
+    text-align: center;
+    padding: 32px 0;
+    color: var(--text-tertiary);
+}
+
+.addBudgetForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formGroup label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.categorySelect {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 12px;
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: all var(--transition-speed);
+}
+
+.categorySelect:focus {
+    border-color: var(--accent-primary);
+}
+
+.inputWithIcon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.currencySymbol {
+    position: absolute;
+    left: 12px;
+    color: var(--text-tertiary);
+}
+
+.amountInput {
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 12px 12px 12px 28px;
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: all var(--transition-speed);
+}
+
+.amountInput:focus {
+    border-color: var(--accent-primary);
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    font-weight: 500;
+}
+
+.addButton:hover {
+    background-color: #00a0c0;
+    transform: translateY(-2px);
+}
+
+.addButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.settingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.settingItem:last-child {
+    border-bottom: none;
+}
+
+.settingInfo h4 {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.settingInfo p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+}
+
+.settingSelect {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: all var(--transition-speed);
+}
+
+.toggle {
+    position: relative;
+    width: 50px;
+    height: 26px;
+}
+
+.toggleInput {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggleLabel {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-secondary);
+    transition: all var(--transition-speed);
+    border-radius: 24px;
+}
+
+.toggleLabel:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--text-tertiary);
+    transition: all var(--transition-speed);
+    border-radius: 50%;
+}
+
+.toggleInput:checked+.toggleLabel {
+    background-color: rgba(0, 184, 212, 0.5);
+}
+
+.toggleInput:checked+.toggleLabel:before {
+    transform: translateX(24px);
+    background-color: var(--accent-primary);
+}
+
+.errorMessage {
+    background-color: rgba(207, 102, 121, 0.1);
+    color: var(--danger);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+}
+
+.successMessage {
+    background-color: rgba(3, 218, 198, 0.1);
+    color: var(--success);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: var(--text-secondary);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .settingsContainer {
+        flex-direction: column;
+    }
+
+    .settingsTabs {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--bg-tertiary);
+        padding: 0;
+    }
+
+    .tabButton {
+        padding: 16px;
+        flex-direction: column;
+        width: auto;
+        flex: 1;
+    }
+
+    .tabIcon {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+
+    .budgetHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .monthSelector {
+        width: 100%;
+    }
+
+    .monthSelect {
+        flex: 1;
+    }
+}
+
+/* src/pages/SettingsPage.module.css */
+.container {
+    padding: 24px;
+}
+
+.container h1 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.errorMessage {
+    background-color: rgba(207, 102, 121, 0.1);
+    color: var(--danger);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    color: var(--text-secondary);
+}
+
+.settingsLayout {
+    display: flex;
+    gap: 24px;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.sidebarItem {
+    padding: 16px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebarItem:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebarItem.active {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+.content {
+    flex: 1;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 24px;
+}
+
+.tabContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.monthSelector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.monthSelector label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.monthSelect {
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--bg-tertiary);
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.budgetSection,
+.addBudgetSection,
+.settingsSection {
+    padding: 20px;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+}
+
+.budgetSection h3,
+.addBudgetSection h3,
+.settingsSection h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.noBudgets {
+    color: var(--text-tertiary);
+    text-align: center;
+    padding: 20px 0;
+}
+
+.budgetsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.budgetItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed);
+}
+
+.budgetItem:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.budgetCategory {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.categoryDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.budgetAmount {
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+.deleteButton {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all var(--transition-speed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteButton:hover {
+    background-color: rgba(207, 102, 121, 0.1);
+    color: var(--danger);
+}
+
+.totalBudget {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    margin-top: 8px;
+    border-top: 1px solid var(--bg-secondary);
+}
+
+.totalLabel {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.totalAmount {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--success);
+}
+
+.budgetForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formGroup label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.categorySelect,
+.settingSelect,
+.budgetInput {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--bg-secondary);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.inputWithIcon {
+    position: relative;
+}
+
+.currencySymbol {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: var(--text-tertiary);
+}
+
+.inputWithIcon input {
+    padding-left: 28px;
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    font-weight: 500;
+}
+
+.addButton:hover {
+    background-color: #00a0c0;
+    transform: translateY(-2px);
+}
+
+.buttonIcon {
+    font-size: 0.9rem;
+}
+
+/* Toggle Switch */
+.toggleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggleInput {
+    display: none;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.toggle:after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--text-tertiary);
+    top: 3px;
+    left: 3px;
+    transition: all var(--transition-speed);
+}
+
+.toggleInput:checked+.toggle {
+    background-color: rgba(0, 184, 212, 0.3);
+}
+
+.toggleInput:checked+.toggle:after {
+    transform: translateX(24px);
+    background-color: var(--accent-primary);
+}
+
+.toggleLabel {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
+    .settingsLayout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+    }
+
+    .sidebarItem {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+    }
+}

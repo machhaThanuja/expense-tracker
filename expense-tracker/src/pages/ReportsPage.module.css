@@ -1,0 +1,329 @@
+.container {
+    padding: 24px;
+}
+
+.reportHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.reportTabs {
+    display: flex;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 4px;
+}
+
+.reportTab {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+}
+
+.reportTab:hover {
+    color: var(--text-primary);
+}
+
+.reportTab.active {
+    background-color: var(--bg-secondary);
+    color: var(--accent-primary);
+}
+
+.tabIcon {
+    margin-right: 8px;
+}
+
+.reportControls {
+    display: flex;
+    gap: 16px;
+}
+
+.timeframeSelector,
+.monthSelector {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 0 12px;
+}
+
+.controlIcon {
+    color: var(--text-tertiary);
+    margin-right: 8px;
+}
+
+.controlSelect {
+    background-color: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: 10px 8px 10px 0;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.exportButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.exportButton:hover {
+    background-color: #00a0c0;
+    transform: translateY(-2px);
+}
+
+.buttonIcon {
+    font-size: 0.9rem;
+}
+
+.reportContainer {
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+}
+
+.reportContent {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.statCard {
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    transition: all var(--transition-speed);
+}
+
+.statCard:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.statCard h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--accent-primary);
+}
+
+.statFooter {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+}
+
+.chartsRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+}
+
+.chartCard {
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    height: 100%;
+}
+
+.chartCard h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.chartContainer {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noDataMessage {
+    text-align: center;
+    color: var(--text-tertiary);
+    padding: 40px 0;
+}
+
+.budgetDetailsTable {
+    margin-top: 32px;
+}
+
+.budgetDetailsTable h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.tableContainer {
+    overflow-x: auto;
+}
+
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dataTable th,
+.dataTable td {
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.dataTable th {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.dataTable tr {
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.dataTable tr:last-child {
+    border-bottom: none;
+}
+
+.statusBadge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.statusGood {
+    background-color: rgba(3, 218, 198, 0.1);
+    color: var(--success);
+}
+
+.statusWarning {
+    background-color: rgba(255, 183, 77, 0.1);
+    color: #ffb74d;
+}
+
+.statusOver {
+    background-color: rgba(207, 102, 121, 0.1);
+    color: var(--danger);
+}
+
+.comingSoon {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--text-secondary);
+}
+
+.comingSoon h2 {
+    margin-bottom: 16px;
+    color: var(--accent-primary);
+}
+
+.errorMessage {
+    background-color: rgba(207, 102, 121, 0.1);
+    color: var(--danger);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+}
+
+.loading {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--text-secondary);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .reportHeader {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .reportTabs {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .reportControls {
+        justify-content: space-between;
+    }
+
+    .controlSelect {
+        min-width: 100px;
+    }
+
+    .chartsRow {
+        grid-template-columns: 1fr;
+    }
+
+    .statsGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .statCard {
+        min-width: 0;
+    }
+
+    .chartContainer {
+        height: 250px;
+    }
+}
+
+@media (max-width: 576px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .reportControls {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    .reportContainer {
+        padding: 16px;
+    }
+}

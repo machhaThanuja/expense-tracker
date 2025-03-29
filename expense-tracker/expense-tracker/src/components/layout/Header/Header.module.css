@@ -1,0 +1,138 @@
+.header {
+    background-color: var(--bg-secondary);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: var(--shadow);
+    z-index: 100;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+}
+
+.menuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    margin-right: 16px;
+    transition: color var(--transition-speed);
+}
+
+.menuButton:hover {
+    color: var(--accent-primary);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.searchContainer {
+    position: relative;
+    flex: 1;
+    max-width: 500px;
+    margin: 0 20px;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: background-color var(--transition-speed);
+}
+
+.searchInput:focus {
+    outline: none;
+    background-color: rgba(45, 45, 45, 0.9);
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+}
+
+.iconButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    margin-left: 16px;
+    transition: color var(--transition-speed);
+}
+
+.iconButton:hover {
+    color: var(--text-primary);
+}
+
+.notificationBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--danger);
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
+    cursor: pointer;
+}
+
+.userAvatar {
+    font-size: 2rem;
+    color: var(--accent-primary);
+    margin-right: 8px;
+}
+
+.userName {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .searchContainer {
+        display: none;
+    }
+
+    .userName {
+        display: none;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+}

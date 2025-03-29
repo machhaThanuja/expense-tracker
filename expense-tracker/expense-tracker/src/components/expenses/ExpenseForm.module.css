@@ -1,0 +1,124 @@
+.formContainer {
+    background-color: var(--bg-secondary);
+    padding: 24px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.formTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formGroup label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.formGroup input,
+.formGroup select {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--bg-tertiary);
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all var(--transition-speed);
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(0, 184, 212, 0.2);
+}
+
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.cancelButton,
+.submitButton {
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: all var(--transition-speed);
+}
+
+.cancelButton {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--bg-tertiary);
+}
+
+.cancelButton:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+.submitButton {
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+}
+
+.submitButton:hover {
+    background-color: #00a0c0;
+    transform: translateY(-2px);
+}
+
+.submitButton:disabled,
+.cancelButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    background-color: rgba(207, 102, 121, 0.1);
+    color: var(--danger);
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .formContainer {
+        padding: 16px;
+    }
+
+    .formActions {
+        flex-direction: column;
+    }
+
+    .cancelButton,
+    .submitButton {
+        width: 100%;
+    }
+}
+.loadingText {
+    padding: 12px;
+    color: var(--text-secondary);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    text-align: center;
+}

@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const { authenticateToken } = require('./users');
+
+// Make categories available without authentication for now
+// You can add authentication here later
 
 // Get all categories
-// In server/routes/categories.js
 router.get('/', async (req, res) => {
     try {
         const [rows] = await db.query('SELECT * FROM categories ORDER BY name');
-        console.log('Categories fetched from database:', rows);
         res.json(rows);
     } catch (error) {
         console.error('Error fetching categories:', error);
@@ -16,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new category
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     const { name, color } = req.body;
 
     if (!name) {
@@ -45,7 +47,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a category
-router.put('/:id', async (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
     const { name, color } = req.body;
 
     if (!name) {
@@ -78,7 +80,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete a category
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
     try {
         // Check if category is used in expenses
         const [expenseCheck] = await db.query(

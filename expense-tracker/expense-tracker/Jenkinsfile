@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_IMAGE = 'expense-tracker'
+        DOCKER_TAG = "${env.BUILD_NUMBER}"
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                sh "docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} npm test -- --watchAll=false"
+            }
+        }
+        
+        stage('Deploy to Staging') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh '''
+                docker-compose -f docker-compose.yml -f docker-compose.staging.yml down
+                docker-compose -f docker-compose.yml -f docker-compose.staging.yml up -d
+                '''
+            }
+        }
+        
+        stage('Deploy to Production') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh '''
+                docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+                docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh "docker image prune -f"
+        }
+    }
+}

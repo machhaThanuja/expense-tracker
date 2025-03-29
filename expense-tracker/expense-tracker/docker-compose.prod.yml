@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    image: expense-tracker:${BUILD_NUMBER:-latest}
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=prod-db-host
+      - DB_USER=prod_user
+      - DB_PASSWORD=prod_password
+      - DB_NAME=expense_tracker_prod
+    restart: always
+    deploy:
+      replicas: 3
+
+  db:
+    environment:
+      - MYSQL_DATABASE=expense_tracker_prod
+      - MYSQL_ROOT_PASSWORD=prod_password
+    restart: always
+    volumes:
+      - prod_mysql_data:/var/lib/mysql
+
+volumes:
+  prod_mysql_data:

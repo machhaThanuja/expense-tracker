@@ -274,4 +274,15 @@
     padding: 24px;
     text-align: center;
     color: var(--text-secondary);
+
+}
+
+.settingsLink {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: all var(--transition-speed);
+}
+
+.settingsLink:hover {
+    text-decoration: underline;
 }
