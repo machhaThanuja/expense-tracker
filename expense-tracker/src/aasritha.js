@@ -1,8 +1,1 @@
-Hello
-hello
-hello this is webhook checking page thats it...
-its review time...
-29/03/2025
-  we are in the review
-...
-000
+hello... this page is used to check the CI is working or not
