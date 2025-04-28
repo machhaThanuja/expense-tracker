@@ -1,2 +1,2 @@
 # expense-tracker
-It is an Cloud devops project 
+It is an Cloud devops project
